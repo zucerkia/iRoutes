@@ -17,9 +17,7 @@
 //  * under the License.
 //  */
 
-var iRoutes = new Framework7();
 
-var $$ = Dom7;
 // var app = {
 //     // Application Constructor
 //     initialize: function() {
@@ -48,3 +46,52 @@ var $$ = Dom7;
 // };
 
 // app.initialize();
+
+var iRoutes = new Framework7();
+var $$ = Dom7;
+var posicionActual;
+var radio=500;
+
+//opciones del mapa
+var options = {
+
+    zoom:15,
+    disableDefaultUI: true,
+    center: posicionActual,
+    center:{ lat:6.5, lng:-75.0589 }
+  }
+
+
+
+function initMap() {
+
+
+    // se inicializa el mapa con las opciones
+    let map = new google.maps.Map(document.getElementById('map'),options);
+
+    if (navigator.geolocation) {
+
+    //se utiliza la geolocation para centrar el mapa
+
+        navigator.geolocation.getCurrentPosition( function(position) {
+            posicionActual = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+          // se centra el mapa
+            map.setCenter(posicionActual);
+
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+              
+    }
+
+}
+
+
+window.onload = function(){
+    initMap();
+};
+
+
