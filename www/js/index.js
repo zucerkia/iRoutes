@@ -194,12 +194,34 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-          // se centra el mapa
+            // se centra el mapa
             map.setCenter(posicionActual);
+
+            //se crea un marcador para señala nuestra posicion actual
+            let marker = new google.maps.Marker({
+                position:posicionActual,
+                map: map,
+                icon:'img/posicion-actual.png'
+            });
+        
+            // se crea un circulo en el mapa para representar el radio de busqueda
+            let circle = new google.maps.Circle({
+                strokeColor: '#33658a',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillOpacity: 0.3,
+                fillColor: '#33658a',
+                center:posicionActual,
+                map: map,
+                radius: radio
+        
+            });
 
         }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
         });
+
+
               
     }
 
