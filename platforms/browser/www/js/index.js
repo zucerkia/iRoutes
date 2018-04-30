@@ -52,6 +52,7 @@ var $$ = Dom7;
 var posicionActual;
 var radio=500;
 
+
 //opciones del mapa
 var options = {
 
@@ -180,7 +181,7 @@ function initMap() {
 
 
     // se inicializa el mapa con las opciones
-    let map = new google.maps.Map(document.getElementById('map'),options);
+    map = new google.maps.Map(document.getElementById('map'),options);
 
     // se añade un estilo al mapa
     map.mapTypes.set('styled_map', styledMapType);
