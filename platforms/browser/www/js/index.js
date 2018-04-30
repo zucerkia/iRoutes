@@ -224,8 +224,24 @@ function initMap() {
 
               
     }
-
+    else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
 }
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+                          'Error: The Geolocation service failed.' :
+                          'Error: Your browser doesn\'t support geolocation.');
+  }
+
+// funcion para abrir el panel con las rutas 
+
+$$('.open-left-panel').on('click', function (e) {
+    iRoutes.panel.open('left');
+});
 
 
 window.onload = function(){

@@ -9,6 +9,10 @@
     background:#0b5269 !important;
 }
 
+.panel .navbar{
+    background:#03051e !important;
+}
+
 #map{
     height:100%;
     width:100%;
