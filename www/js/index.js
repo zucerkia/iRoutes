@@ -51,7 +51,9 @@ var iRoutes = new Framework7();
 var $$ = Dom7;
 var posicionActual;
 var radio=500;
-
+var Url = 'http://iroutes.azurewebsites.net';
+var rutas;
+var map;
 
 //opciones del mapa
 var options = {
@@ -244,6 +246,30 @@ $$('.open-left-panel').on('click', function (e) {
     iRoutes.panel.open('left');
 });
 
+//evento click para realizar una peticion a la API para buscar las rutas cercanas
+
+$$('.buscar').on('click', function (e) {
+
+    $$('.iroutes').empty();
+    iRoutes.request.get(Url + '/api/Ruta', {radio:'500',lat:posicionActual.lat,lng:posicionActual.lng}, function (data) {
+
+      rutas = JSON.parse(data);
+
+      for (var i = 0; i < rutas.length; i++) {
+
+           var color = randomColor({hue:'green',luminosity:'dark'});
+          render(rutas[i],color);
+
+       }
+
+   });
+
+  });
+
+//funcion para mostrar el nombre de las rutas de buses encontradas
+function render(obj,color) {
+  $$(".iroutes").prepend("<li id='"+obj.Nombre+"Color' style='background-color:"+color+"' class='item-content'><div class='item-inner ruta' id='"+obj.Nombre+"'><div id='"+obj.Nombre+"' class='item-title' style='color:#ffffff'>"+obj.Nombre+"</div></div></li>");
+}
 
 window.onload = function(){
     initMap();
