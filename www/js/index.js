@@ -271,6 +271,35 @@ function render(obj,color) {
   $$(".iroutes").prepend("<li id='"+obj.Nombre+"Color' style='background-color:"+color+"' class='item-content'><div class='item-inner ruta' id='"+obj.Nombre+"'><div id='"+obj.Nombre+"' class='item-title' style='color:#ffffff'>"+obj.Nombre+"</div></div></li>");
 }
 
+// funcion para trazar una linea en el mapa con la forma de la ruta encontrada
+function visualizar(obj,color){
+    var path= obj.Coordenadas;
+    
+      var trazo = new google.maps.Polyline({
+            path: path,
+              geodesic: true,
+              strokeColor:color,
+              strokeOpacity: 1.0,
+              strokeWeight: 2
+      });
+    
+     trazo.setMap(map);
+    
+}
+ 
+// evento click que llama a la funcion trazar y visualiza la ruta correspondiente al elemento seleccionado 
+$$("body").on('click','.iroutes li',function(e){
+        var id = e.target.id;
+        var idColor = id+"Color";
+        for (var i = 0; i < rutas.length; i++) {
+            if(rutas[i].Nombre.localeCompare(id)==0){
+                var color = document.getElementById(idColor).style;
+                visualizar(rutas[i],color.backgroundColor);
+                break;
+            }
+        }
+});
+    
 window.onload = function(){
     initMap();
 };
